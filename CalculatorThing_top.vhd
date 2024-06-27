@@ -105,11 +105,10 @@ architecture CalculatorLogic of CalculatorThing_top is
 begin
 
 ---------INSTANCES--------------
-   INST1: PB_Inverters port map(pb_n, pb); --Invert push buttons to be active high
-   INST2: SevenSegment port map(disp_A, seg7_A); --Translates disp_A to seg7_A 
-   INST3: SevenSegment port map(disp_B, seg7_B); --Translates disp_B to seg7_B
-   --INST4: segment7_mux port map(clkin_50, seg7_A, seg7_B, seg7_data, seg7_char2, seg7_char1); --takes seg7_A and seg7_B and sends to 2x 7-seg display
-	INST4: seg7_disp_driver port map(clkin_50, seg7_A, seg7_B, seg7_data, seg7_char2, seg7_char1); --takes seg7_A and seg7_B and sends to 2x 7-seg display
+   PB_INV: PB_Inverters port map(pb_n, pb); --Invert push buttons to be active high
+   DISP_A_7: SevenSegment port map(disp_A, seg7_A); --Translates disp_A to seg7_A 
+   DISP_B_7: SevenSegment port map(disp_B, seg7_B); --Translates disp_B to seg7_B
+	DISP_DRIV: seg7_disp_driver port map(clkin_50, seg7_A, seg7_B, seg7_data, seg7_char2, seg7_char1); --takes seg7_A and seg7_B and sends to 2x 7-seg display
 	INST5: full_adder_5bit port map('0' & hex_A,'0' & hex_B,'0',adder_result_5,adder_carry);
 	INST6: unsign_mult_4bit port map(hex_A, hex_B, mult_result);
 	
