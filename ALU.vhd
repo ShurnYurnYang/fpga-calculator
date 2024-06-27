@@ -16,9 +16,9 @@ entity ALU is
 		opcode : in std_logic_vector(2 downto 0); --3bit opcode
 		result : out std_logic_vector(7 downto 0); --8bit ALU result
 		carry_out : out std_logic; --carry out flag
-		zero : out std_logic: --result is zero flag
-		sign : out std_logic: --sign of result flag (0 = +pos | 1 = -neg)
-		overflow : out std_logic: --result has overflowed 8bits flag
+		zero : out std_logic; --result is zero flag
+		sign : out std_logic; --sign of result flag (0 = +pos | 1 = -neg)
+		overflow : out std_logic --result has overflowed 8bits flag
 	);
 end ALU;
 
@@ -38,8 +38,13 @@ architecture ALU_logic of ALU is
 		mult_out : out std_logic_vector(7 downto 0) --8bit out
 	);
 	end component;
+	
+	signal add_result : std_logic_vector(4 downto 0);
+	signal add_carry : std_logic;
 
 begin
 
-
+	ADD: full_adder_5bit port map('0' & input_a,'0' & input_b,'0',add_result,add_carry); --temporary '0' -> should be decided by opcode -> fix this later
+	
+	
 end ALU_logic;
