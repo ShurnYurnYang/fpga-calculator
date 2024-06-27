@@ -20,19 +20,14 @@ architecture full_add_5bit_logic of full_adder_5bit is
 	);
 	end component;
 	
-	component full_adder_4bit port(
-		input_a, input_b : in std_logic_vector(3 downto 0); --4bit inputs to add
-		carry_in : in std_logic; --1bit carry input from external
-		full_adder_sum_out : out std_logic_vector(3 downto 0); --4bit sum out from this full adder
-		full_adder_carry_out : out std_logic --1bit carry out from this full adder
-	);
-	end component;
-	
-	signal carry_4bit_adder : std_logic;
+	signal carry : std_logic_vector(3 downto 0);
 	
 begin
 
-	INST1: full_adder_4bit port map(input_a(3 downto 0),input_b(3 downto 0),carry_in,full_adder_sum_out(3 downto 0),carry_4bit_adder);
-	INST2: full_adder_1bit port map(input_a(4),input_b(4),carry_4bit_adder,full_adder_sum_out(4),full_adder_carry_out);
+	BIT0: full_adder_1bit port map(input_a(0),input_b(0),carry_in,full_adder_sum_out(0),carry(0));
+	BIT1: full_adder_1bit port map(input_a(1),input_b(1),carry(0),full_adder_sum_out(1),carry(1));
+	BIT2: full_adder_1bit port map(input_a(2),input_b(2),carry(1),full_adder_sum_out(2),carry(2));
+	BIT3: full_adder_1bit port map(input_a(3),input_b(3),carry(2),full_adder_sum_out(3),carry(3));
+	BIT4: full_adder_1bit port map(input_a(4),input_b(4),carry(3),full_adder_sum_out(4),full_adder_carry_out);
 
 end full_add_5bit_logic;
