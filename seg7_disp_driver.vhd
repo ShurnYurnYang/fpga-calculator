@@ -55,7 +55,8 @@ begin
    -- This block dynamically assigns the value to 'DOUT_TEMP' based on the state of 'toggle'.
    -- When 'toggle' is '1', data from 'DIN2' is output, otherwise data from 'DIN1' is used.
    data_output : for i in 0 to 6 generate
-      DOUT_TEMP(i) <= DIN2(i) when toggle = '1' else DIN1(i); -- Select input based on toggle
+      DOUT_TEMP(i) <= DIN2(i) when toggle = '1' 
+							 else DIN1(i); -- Select input based on toggle
    end generate data_output;
 
    -- Driving the outputs with optional open-drain configuration on some bits
@@ -63,8 +64,9 @@ begin
    -- If 'DOUT_TEMP' is '1' and the bit is configured for open-drain (bits 1, 5, 6), it outputs 'Z' (high impedance).
    -- Otherwise, it outputs '1'.
    output_drivers : for i in 0 to 6 generate
-      DOUT(i) <= '0' when DOUT_TEMP(i) = '0' else
-                 '1' when (i = 1 or i = 5 or i = 6) else 'Z'; -- Use 'Z' for open-drain simulation
+      DOUT(i) <= '0' when DOUT_TEMP(i) = '0' 
+						else 'Z' when (i = 1 or i = 5 or i = 6) -- Use 'Z' for open-drain simulation
+						else '1'; 
    end generate output_drivers;
 
 end architecture Behavioral;
