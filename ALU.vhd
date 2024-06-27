@@ -13,8 +13,12 @@ entity ALU is
 	port(
 		input_a, input_b : in std_logic_vector(3 downto 0); --4bit inputs to add
 		carry_in : in std_logic; --1bit carry input from external
-		full_adder_sum_out : out std_logic_vector(3 downto 0); --4bit sum out from this full adder
-		full_adder_carry_out : out std_logic --1bit carry out from this full adder
+		opcode : in std_logic_vector(2 downto 0); --3bit opcode
+		result : out std_logic_vector(7 downto 0); --8bit ALU result
+		carry_out : out std_logic; --carry out flag
+		zero : out std_logic: --result is zero flag
+		sign : out std_logic: --sign of result flag (0 = +pos | 1 = -neg)
+		overflow : out std_logic: --result has overflowed 8bits flag
 	);
 end ALU;
 
